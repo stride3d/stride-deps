@@ -7,6 +7,8 @@ jobs:
   build:
     name: Build SwiftShader (Windows x64)
     runs-on: windows-2025-vs2026
+    env:
+      CMAKE_POLICY_VERSION_MINIMUM: "3.5"
     steps:
       - name: Checkout this repo
         uses: actions/checkout@v4
@@ -21,7 +23,7 @@ jobs:
       - name: Build
         shell: pwsh
         run: |
-          cmake -S swiftshader-src -B swiftshader-build -Thost=x64 -DCMAKE_POLICY_VERSION_MINIMUM=3.5 -DSWIFTSHADER_BUILD_TESTS=OFF -DSWIFTSHADER_BUILD_BENCHMARKS=OFF
+          cmake -S swiftshader-src -B swiftshader-build -Thost=x64 -DSWIFTSHADER_BUILD_TESTS=OFF -DSWIFTSHADER_BUILD_BENCHMARKS=OFF
           cmake --build swiftshader-build --config Release --target vk_swiftshader
 
       - name: Commit binaries
